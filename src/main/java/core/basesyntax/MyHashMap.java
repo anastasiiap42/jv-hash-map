@@ -1,4 +1,5 @@
 package core.basesyntax;
+
 import java.util.Objects;
 
 public class MyHashMap<K, V> implements MyMap<K, V> {
@@ -81,10 +82,10 @@ public class MyHashMap<K, V> implements MyMap<K, V> {
     }
 
     private static class Node<K,V> {
-        final int hash;
-        final K key;
-        V value;
-        Node<K,V> next;
+        private final int hash;
+        private final K key;
+        private V value;
+        private Node<K,V> next;
 
         Node(int hash, K key, V value, Node<K,V> next) {
             this.hash = hash;
