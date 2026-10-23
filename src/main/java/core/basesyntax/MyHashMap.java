@@ -46,9 +46,9 @@ public class MyHashMap<K, V> implements MyMap<K, V> {
         if (table[index] == null) {
             return null;
         }
-        for (Node<K,V> old = table[index]; old != null; old = old.next) {
-            if (Objects.equals(key, old.key)) {
-                return old.value;
+        for (Node<K,V> current = table[index]; current != null; current = current.next) {
+            if (Objects.equals(key, current.key)) {
+                return current.value;
             }
         }
         return null;
@@ -63,18 +63,18 @@ public class MyHashMap<K, V> implements MyMap<K, V> {
         int oldCapacity = this.capacity;
         int newCapacity = oldCapacity << 1;
         Node<K,V>[] newTable = new Node[newCapacity];
+        this.capacity = newCapacity;
 
         for (Node<K, V> node : table) {
             while (node != null) {
                 Node<K, V> next = node.next;
-                int newIndex = node.key.hashCode() & (newCapacity - 1);
+                int newIndex = hash(node.key);
                 node.next = newTable[newIndex];
                 newTable[newIndex] = node;
                 node = next;
             }
         }
         this.table = newTable;
-        this.capacity = newCapacity;
     }
 
     private int hash(K key) {
